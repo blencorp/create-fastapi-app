@@ -25,12 +25,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blen/create-fastapi-app.git"
+    "url": "git+https://github.com/blencorp/create-fastapi-app.git"
   },
   "bugs": {
-    "url": "https://github.com/blen/create-fastapi-app/issues"
+    "url": "https://github.com/blencorp/create-fastapi-app/issues"
   },
-  "homepage": "https://github.com/blen/create-fastapi-app#readme",
+  "homepage": "https://github.com/blencorp/create-fastapi-app#readme",
   "engines": {
     "node": ">=14.0.0"
   },
