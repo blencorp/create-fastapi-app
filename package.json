@@ -1,0 +1,42 @@
+{
+  "name": "@blen/create-fastapi-app",
+  "version": "1.0.3",
+  "description": "Create a FastAPI project with proper tooling in seconds",
+  "type": "module",
+  "bin": {
+    "create-fastapi-app": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "templates"
+  ],
+  "scripts": {
+    "test": "node index.js test-app"
+  },
+  "keywords": [
+    "fastapi",
+    "python",
+    "uv",
+    "create-app",
+    "scaffold",
+    "boilerplate"
+  ],
+  "author": "Blen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blen/create-fastapi-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blen/create-fastapi-app/issues"
+  },
+  "homepage": "https://github.com/blen/create-fastapi-app#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "ora": "^7.0.1"
+  }
+}
