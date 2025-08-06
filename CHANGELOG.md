@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/blencorp/create-fastapi-app/compare/v1.0.0...v1.0.1) (2025-08-06)
+
+
+### Bug Fixes
+
+* update README to clarify uv description ([#5](https://github.com/blencorp/create-fastapi-app/issues/5)) ([70eca74](https://github.com/blencorp/create-fastapi-app/commit/70eca74e87dad78b3cf6462044e89ff808b79047))
+
 # 1.0.0 (2025-08-06)
 
 
