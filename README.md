@@ -34,7 +34,7 @@ After creating your project:
 
 ```bash
 cd my-api
-make run
+uv run uvicorn app.main:app --reload
 ```
 
 Your API will be running at http://localhost:8000
@@ -42,14 +42,16 @@ Your API will be running at http://localhost:8000
 - API docs: http://localhost:8000/docs
 - Health check: http://localhost:8000/health
 
-## Available Commands
+## Development Commands
+
+In your created project, you can run:
 
 ```bash
-make run        # Start dev server
-make test       # Run tests
-make lint       # Check code
-make format     # Format code
-make typecheck  # Type checking
+uv run uvicorn app.main:app --reload  # Start dev server
+uv run pytest                          # Run tests  
+uv run black app tests                 # Format code
+uv run ruff check app                  # Lint code
+uv run mypy app                        # Type checking
 ```
 
 ## Contributing

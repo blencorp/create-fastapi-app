@@ -85,18 +85,6 @@ async def get_item(item_id: int):
     
     return {"item_id": item_id, "name": f"Item {item_id}"}`,
 
-  "run.py": `#!/usr/bin/env python
-import uvicorn
-from app.config import get_settings
-
-if __name__ == "__main__":
-    settings = get_settings()
-    uvicorn.run(
-        "app.main:app",
-        host=settings.host,
-        port=settings.port,
-        reload=settings.debug
-    )`,
 
   "tests/test_main.py": `import pytest
 from fastapi.testclient import TestClient
@@ -149,38 +137,7 @@ venv/
 *.db
 .DS_Store
 .vscode/
-.idea/`,
-
-  "Makefile": `.PHONY: help run test lint format typecheck clean
-
-help:
-	@echo "Available commands:"
-	@echo "  make run        - Run the development server"
-	@echo "  make test       - Run tests"
-	@echo "  make lint       - Run linter (ruff)"
-	@echo "  make format     - Format code (black)"
-	@echo "  make typecheck  - Run type checker (mypy)"
-	@echo "  make clean      - Clean cache files"
-
-run:
-	uv run python run.py
-
-test:
-	uv run pytest
-
-lint:
-	uv run ruff check app tests
-
-format:
-	uv run black app tests
-
-typecheck:
-	uv run mypy app
-
-clean:
-	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-	find . -type f -name "*.pyc" -delete
-	rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage`
+.idea/`
 };
 
 function checkUv() {
@@ -210,11 +167,6 @@ function createFile(projectPath, relativePath, content) {
   }
   
   writeFileSync(fullPath, content);
-  
-  // Make run.py executable
-  if (relativePath === "run.py") {
-    chmodSync(fullPath, "755");
-  }
 }
 
 async function createProject(projectName) {
@@ -304,20 +256,45 @@ ignore_missing_imports = true
 
 \`\`\`bash
 # Run development server
-make run
-# or
-uv run python run.py
+uv run uvicorn app.main:app --reload
+
+# Or with custom host/port
+uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 \`\`\`
 
-API docs: http://localhost:8000/docs
+Your API will be available at:
+- http://localhost:8000 - API root
+- http://localhost:8000/docs - Interactive API documentation
+- http://localhost:8000/health - Health check endpoint
 
-## Development
+## Development Commands
 
 \`\`\`bash
-make test       # Run tests
-make lint       # Check code style
-make format     # Format code
-make typecheck  # Type checking
+# Run tests
+uv run pytest
+
+# Format code
+uv run black app tests
+
+# Lint code
+uv run ruff check app tests
+
+# Type checking
+uv run mypy app
+\`\`\`
+
+## Project Structure
+
+\`\`\`
+${projectName}/
+├── app/
+│   ├── __init__.py
+│   ├── config.py     # Settings and configuration
+│   └── main.py       # FastAPI application
+├── tests/
+│   └── test_main.py  # Test suite
+├── .env              # Environment variables
+└── pyproject.toml    # Project configuration
 \`\`\`
 `;
     createFile(projectPath, "README.md", readme);
@@ -326,14 +303,12 @@ make typecheck  # Type checking
     
     // Success message
     console.log(chalk.green("\n✅ Project created successfully!\n"));
-    console.log(chalk.cyan("Next steps:"));
+    console.log(chalk.cyan("To get started:\n"));
     console.log(chalk.white(`  cd ${projectName}`));
-    console.log(chalk.white("  make run"));
-    console.log(chalk.gray("\nAPI docs will be at: http://localhost:8000/docs"));
-    console.log(chalk.gray("\nAvailable commands:"));
-    console.log(chalk.gray("  make test    - Run tests"));
-    console.log(chalk.gray("  make lint    - Check code"));
-    console.log(chalk.gray("  make format  - Format code\n"));
+    console.log(chalk.white(`  uv run uvicorn app.main:app --reload`));
+    console.log(chalk.gray("\nYour API will be running at:"));
+    console.log(chalk.gray("  http://localhost:8000"));
+    console.log(chalk.gray("  http://localhost:8000/docs (API documentation)\n"));
   } catch (error) {
     filesSpinner.fail("Failed to create project files");
     console.error(error);

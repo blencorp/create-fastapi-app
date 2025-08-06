@@ -1,6 +1,6 @@
 {
   "name": "@blen/create-fastapi-app",
-  "version": "1.0.3",
+  "version": "1.2.0",
   "description": "Create a FastAPI project with proper tooling in seconds",
   "type": "module",
   "bin": {
