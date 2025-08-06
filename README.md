@@ -25,7 +25,7 @@ A clean FastAPI project with:
 
 ## Requirements
 
-- [uv](https://github.com/astral-sh/uv) - Python package manager
+- [uv](https://github.com/astral-sh/uv) - Fast Python package manager
 - Node.js 14+
 
 ## Quick Start
