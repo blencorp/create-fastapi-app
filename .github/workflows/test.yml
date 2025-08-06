@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  push:
+    branches-ignore: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      
+      - name: Test package
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          node index.js test-project
+          cd test-project
+          uv run pytest
