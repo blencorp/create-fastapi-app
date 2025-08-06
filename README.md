@@ -58,6 +58,27 @@ uv run mypy app                        # Type checking
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
+## Release Process
+
+This package uses [semantic-release](https://github.com/semantic-release/semantic-release) for automated versioning and publishing.
+
+### Commit Message Format
+
+Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+- `feat:` - New features (bumps minor version)
+- `fix:` - Bug fixes (bumps patch version)  
+- `docs:` - Documentation changes
+- `chore:` - Maintenance tasks
+- `BREAKING CHANGE:` - Breaking changes (bumps major version)
+
+Examples:
+```bash
+git commit -m "feat: add support for Python 3.12"
+git commit -m "fix: correct uvicorn command in output"
+git commit -m "docs: update installation instructions"
+```
+
 ## License
 
 MIT - see [LICENSE](LICENSE) for details
