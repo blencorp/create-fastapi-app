@@ -17,8 +17,7 @@ from functools import lru_cache
 class Settings(BaseSettings):
     debug: bool = True
     
-    class Config:
-        env_file = ".env"
+    model_config = {"env_file": ".env"}
 
 
 @lru_cache()
@@ -196,7 +195,7 @@ async function createProject(projectName) {
   
   // Add dependencies
   const depsSpinner = ora("Installing dependencies...").start();
-  if (!runCommand("uv add 'fastapi[standard]' python-dotenv", { stdio: "pipe" })) {
+  if (!runCommand("uv add 'fastapi[standard]' python-dotenv pydantic-settings", { stdio: "pipe" })) {
     depsSpinner.fail("Failed to install dependencies");
     process.exit(1);
   }
