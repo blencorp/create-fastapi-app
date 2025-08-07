@@ -66,8 +66,8 @@ We use conventional commits. Please format your commit messages as:
 Before submitting a PR, ensure:
 - [ ] The CLI runs without errors
 - [ ] Generated project structure is correct
-- [ ] `make run` works in the generated project
-- [ ] `make test` passes in the generated project
+- [ ] `uv run fastapi dev` works in the generated project
+- [ ] `uv run pytest` passes in the generated project
 - [ ] No hardcoded paths or user-specific data
 
 ## Questions?
