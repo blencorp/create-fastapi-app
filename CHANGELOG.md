@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/blencorp/create-fastapi-app/compare/v1.0.3...v1.0.4) (2025-08-07)
+
+
+### Bug Fixes
+
+* sync package version with npm registry ([#6](https://github.com/blencorp/create-fastapi-app/issues/6)) ([b035272](https://github.com/blencorp/create-fastapi-app/commit/b0352725307a552ee6cb1c39b6b7e21e618c3cbe))
+
 ## [1.0.1](https://github.com/blencorp/create-fastapi-app/compare/v1.0.0...v1.0.1) (2025-08-06)
 
 
