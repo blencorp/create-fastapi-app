@@ -8,9 +8,7 @@ import { program } from "commander";
 import ora from "ora";
 
 const templates = {
-  ".env": `DEBUG=True
-HOST=0.0.0.0
-PORT=8000`,
+  ".env": `DEBUG=True`,
 
   "app/config.py": `from pydantic_settings import BaseSettings
 from functools import lru_cache
@@ -18,8 +16,6 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     debug: bool = True
-    host: str = "0.0.0.0"
-    port: int = 8000
     
     class Config:
         env_file = ".env"
@@ -200,7 +196,7 @@ async function createProject(projectName) {
   
   // Add dependencies
   const depsSpinner = ora("Installing dependencies...").start();
-  if (!runCommand("uv add fastapi uvicorn python-dotenv pydantic-settings", { stdio: "pipe" })) {
+  if (!runCommand("uv add 'fastapi[standard]' python-dotenv", { stdio: "pipe" })) {
     depsSpinner.fail("Failed to install dependencies");
     process.exit(1);
   }
@@ -252,49 +248,22 @@ ignore_missing_imports = true
     // Create README
     const readme = `# ${projectName}
 
-## Quick Start
+## Start
 
 \`\`\`bash
-# Run development server
-uv run uvicorn app.main:app --reload
-
-# Or with custom host/port
-uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uv run fastapi dev
 \`\`\`
 
-Your API will be available at:
-- http://localhost:8000 - API root
-- http://localhost:8000/docs - Interactive API documentation
-- http://localhost:8000/health - Health check endpoint
+API: http://localhost:8000  
+Docs: http://localhost:8000/docs
 
-## Development Commands
+## Commands
 
 \`\`\`bash
-# Run tests
-uv run pytest
-
-# Format code
-uv run black app tests
-
-# Lint code
-uv run ruff check app tests
-
-# Type checking
-uv run mypy app
-\`\`\`
-
-## Project Structure
-
-\`\`\`
-${projectName}/
-├── app/
-│   ├── __init__.py
-│   ├── config.py     # Settings and configuration
-│   └── main.py       # FastAPI application
-├── tests/
-│   └── test_main.py  # Test suite
-├── .env              # Environment variables
-└── pyproject.toml    # Project configuration
+uv run pytest              # Run tests
+uv run ruff check .        # Lint
+uv run black .             # Format
+uv add <package>           # Add dependency
 \`\`\`
 `;
     createFile(projectPath, "README.md", readme);
@@ -303,12 +272,16 @@ ${projectName}/
     
     // Success message
     console.log(chalk.green("\n✅ Project created successfully!\n"));
-    console.log(chalk.cyan("To get started:\n"));
-    console.log(chalk.white(`  cd ${projectName}`));
-    console.log(chalk.white(`  uv run uvicorn app.main:app --reload`));
-    console.log(chalk.gray("\nYour API will be running at:"));
-    console.log(chalk.gray("  http://localhost:8000"));
-    console.log(chalk.gray("  http://localhost:8000/docs (API documentation)\n"));
+    console.log(chalk.cyan("Getting started:\n"));
+    console.log(`  ${chalk.gray("$")} ${chalk.white(`cd ${projectName}`)}`);
+    console.log(`  ${chalk.gray("$")} ${chalk.white(`uv run fastapi dev`)}`);
+    console.log(chalk.gray("\n📍 Your API will be available at:"));
+    console.log(chalk.gray("   http://localhost:8000"));
+    console.log(chalk.gray("   http://localhost:8000/docs"));
+    console.log(chalk.gray("\n💡 Other commands:"));
+    console.log(chalk.gray("   uv run pytest           # Run tests"));
+    console.log(chalk.gray("   uv run ruff check .     # Lint code"));
+    console.log(chalk.gray("   uv add <package>        # Add dependencies\n"));
   } catch (error) {
     filesSpinner.fail("Failed to create project files");
     console.error(error);
@@ -320,7 +293,7 @@ ${projectName}/
 program
   .name("create-fastapi-app")
   .description("Create a FastAPI project with proper tooling")
-  .version("1.0.2")
+  .version("1.0.4")
   .argument("<project-name>", "Name of the project to create")
   .action(createProject);
 
