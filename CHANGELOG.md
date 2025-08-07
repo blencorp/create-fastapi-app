@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/blencorp/create-fastapi-app/compare/v1.0.4...v1.1.0) (2025-08-07)
+
+
+### Features
+
+* modernize tooling and remove Makefile references ([#7](https://github.com/blencorp/create-fastapi-app/issues/7)) ([c2431bd](https://github.com/blencorp/create-fastapi-app/commit/c2431bd882b77c75b85f21ba1695413ad6db5d60))
+
 ## [1.0.4](https://github.com/blencorp/create-fastapi-app/compare/v1.0.3...v1.0.4) (2025-08-07)
 
 
